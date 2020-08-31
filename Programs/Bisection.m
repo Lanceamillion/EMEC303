@@ -1,9 +1,9 @@
 % BISECTION METHOD
 %Define function ~= j--> not equal to
-f= @(x) x.^2-5;
+f= @(x) (pi*x.^2.*(12-x)/3)-100;
 %Define end points of interval
 xlow=0;
-xh=10;
+xh=8;
 %Error Tolerance
 tol=1e-5;
 
@@ -24,27 +24,22 @@ set(gca, 'Fontsize',16)
 hold on
 % initiate xr and xrold
 xr = xlow;
-xrold = xh;
 %iterate until converged
 count=0;
-while abs(xr-xrold)>tol
+while abs(xlow-xh)>tol
     count=count+1;
-    
-    % store xrold
-    xrold=xr;
     %Estimate root
-    %     xr = 0.5*(xlow+xh); %bisection method
-    xr= xlow-fl*(xh-xlow)/(fh-fl); % linear interpolation
+    xr = 0.5*(xlow+xh); %bisection method
     %update xlow or xh
     if sign(f(xr)) == sign(f(xlow))
         xlow = xr; %lower subinterval
     else
         xh=xr; 
     end
+    disp(count)
 end
 root = xr;
-% display
-fprintf('Iter=%5i','xr=%5.5f','fr=%5.5e' ,count,xr,f(xr))
+disp(root)
 %add root to plot
 plot(root, f(root),'ro')
 text(root, -10,['Root:', num2str(root)])

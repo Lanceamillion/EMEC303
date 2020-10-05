@@ -86,7 +86,21 @@ for i=1:nx
 end
 %plot
 figure(1);clf(1);
-surf(x,y,phi);
+contour(x,y,phi');
 xlabel('x');
 ylabel('y');
 zlabel('\phi(x,y)');
+
+
+phidx=zeros(nx-2,ny-2);
+phidy=zeros(nx-2,ny-2);
+for i=2:nx-1
+    for j=2:ny-1
+        phidx(i,j) = (phi(i,j)-phi(i+1,j))/dx;
+        phidy(i,j) = (phi(i,j)-phi(i,j+1))/dx;
+    end
+end
+figure(2);clf(2);
+x=linspace(0,lx,nx-1);
+y=linspace(0,ly,nx-1);
+quiver(x,y,phidx',phidy',5)

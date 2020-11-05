@@ -1,0 +1,48 @@
+%% EMEC 303 HW8
+%  Lance Nichols
+%  Section-002
+%  10/26/2020
+
+clear all; clc; close all;
+
+%% Problem 1: Least Squares Fit
+
+%(a) See Attached
+
+x = [1,2,3,3.5,4.25,5,7,10];
+y = [0.2,2.5,4,4.1,4.4,4,5,8.1];
+
+%(b)
+
+M = zeros(2,2);
+b = zeros(2,1);
+
+M(1,1) = length(x);
+M(1,2) = sum(x);
+M(2,1) = sum(x);
+M(2,2) = sum(x.^2);
+
+b(1,1) = sum(y);
+b(2,1) = sum(y.*x);
+
+a = M\b;
+
+
+disp("a0: " + a(1));
+disp("a1: " + a(2));
+
+%(c)
+Sr = sum((y-a(1)-a(2)*x).^2);
+St = sum((y-mean(y)).^2);
+
+R2 = (St-Sr)/St;
+
+disp("R^2: " + R2);
+
+
+%% Problem 2: Generalized least-squares fitting of "synthetic" data
+N = 1000;
+x = linspace(0,5,N);
+a1 = -1; a2=4; a3=9;
+y = a1+a2*x+a3*x.^2;
+
